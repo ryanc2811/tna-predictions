@@ -69,8 +69,10 @@ def rank_questions(predicted_scores, item_index):
 
     return ranked_questions
 
-def get_recommendations(new_user_profile):
+def get_recommendations(new_user_profile_dict):
     
+    # Convert the new user profile dictionary to DataFrame
+    new_user_profile = pd.DataFrame([new_user_profile_dict])
     cluster = model.predict(new_user_profile)[0]
     
     # Filter users in the same cluster and compute similarities, etc.
@@ -107,4 +109,5 @@ def recommend():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.debug = True
+    app.run(host='0.0.0.0', port=80)
